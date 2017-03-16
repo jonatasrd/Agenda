@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.jonatas.agenda.models.Aluno;
+import com.example.jonatas.agenda.dao.AlunoDAO;
 
 public class FormularioActivity extends AppCompatActivity {
 
@@ -30,7 +31,13 @@ public class FormularioActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.menu_formulario_ok:
                 Aluno aluno = formularioHelper.getAluno();
-                Toast.makeText(FormularioActivity.this, "Aluno "+ aluno.getNome()+" gravado.", Toast.LENGTH_SHORT).show();
+
+                AlunoDAO dao = new AlunoDAO(this);
+                dao.insere(aluno);
+                dao.close();
+
+                Toast.makeText(FormularioActivity.this, "Aluno " + aluno.getNome() + " salvo!", Toast.LENGTH_SHORT).show();
+
                 finish();
                 break;
         }
